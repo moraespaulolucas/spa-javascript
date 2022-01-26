@@ -45,6 +45,10 @@ http
 				res.writeHead(200, { "Content-type": contentType });
 				res.end(content, "utf-8");
 			}
+			// HTTP response status codes:
+			// 200 >> success
+			// 404 >> not found
+			// 500 >> internal server error
 		});
 	}) // server listening to the right port and logging a message on the console
 	.listen(port, () => console.log(`Server running on port ${port}`));
