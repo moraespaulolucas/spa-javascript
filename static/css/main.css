@@ -1,0 +1,22 @@
+/* Todas as tags HTML */
+* {
+	/* Zerando todas as margens */
+	margin-block-start: 0;
+	margin-block-end: 0;
+	margin-inline-start: 0;
+	margin-inline-end: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+
+	/* Resetando estilos de fonte */
+	font-size: 100%;
+	font: inherit;
+
+	/* Alinhamento padrão para todos os elementos */
+	vertical-align: baseline;
+
+	/* Tamanho total dos elementos será a soma de
+	margin, padding, border e conteúdo */
+	box-sizing: border-box;
+}
