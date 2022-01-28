@@ -15,30 +15,25 @@ http
 	.createServer((req, res) => {
 		// filePath will receive the path of every file transferred by the server at the request
 		let filePath = "." + req.url;
-		// the if statement makes sure that the first requested file will be index.html
-		if (filePath === "./") {
+		// if the file requested by the url is not in the static folder, it's a url route and the content shown will be index.html
+		if (!filePath.includes("./static/")) {
+			// on this application, the server will no be responsible for routing, the router.js will
+			// so every url settled by the user will get index.html as response
 			filePath = "./index.html";
 		}
 
 		// path.extname extracts the file extension of filePath
 		let extname = String(path.extname(filePath)).toLowerCase();
-		// contentType receives the extname MIME-type if it is declared or a generic binary MIME-type
+		// contentType receives the extname MIME-type if it is declared in mimeTypes.js or a generic binary MIME-type
 		let contentType = mimeTypes[extname] || "application/octet-stream";
 
 		// fs.readFile tries to read the filePath content
 		fs.readFile(filePath, (error, content) => {
-			// if there is an error
+			// if there is an error on the file path not caught by the router.js
 			if (error) {
-				// and it is an invalid requested url
-				if (error.code === "ENOENT") {
-					res.writeHead(404, { "Content-Type": "text/html" });
-					res.end("Not found", "utf-8");
-				}
-				// and it is a server problem
-				else {
-					res.writeHead(500, { "Content-Type": "text/html" });
-					res.end("Server error", "utf-8");
-				}
+				// it might be a server error
+				res.writeHead(500, { "Content-Type": "text/html" });
+				res.end("Server error", "utf-8");
 			}
 			// if all goes well, it sends the filePath content to the client
 			else {
